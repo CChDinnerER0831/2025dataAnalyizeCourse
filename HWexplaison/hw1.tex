@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\[
+f(a,b) = \sum_{i=1}^n (y_i - a - b x_i)^2
+\]
+
+\begin{enumerate}
+  \item function $f$ partial derivative $a$：
+  
+  use chain rule
+  
+  \[
+    \frac{\partial f}{\partial a} = -2 \sum_{i=1}^n (y_i - a - b x_i)
+  \]
+
+  \item function $f$ partial derivative $b$: 
+  
+  use chain rule
+  
+  \[
+    \frac{\partial f}{\partial b} = -2 \sum_{i=1}^n (y_i - a - b x_i) x_i
+  \]
+
+  \item solve $(a,b)$:
+  \[
+    \begin{cases}
+        \frac{\partial f}{\partial a} = 0 
+        \implies\sum_{i=1}^n (y_i - a - b x_i) = 0
+         \\[2mm]
+        \frac{\partial f}{\partial b} = 0 \implies \sum_{i=1}^n (y_i - a - b x_i)x_i = 0
+        \\[1mm]
+        \end{cases}
+    \]
+  
+there is trivial if we assume that
+   \[
+    \bar{y} = \frac{\sum_{i = 1}^n(y_i)}{n},
+    \bar{x} = \frac{\sum_{i = 1}^n(x_i)}{n}
+   \]
+   
+    \[ \implies  a = \bar{y} - b \bar{x},\]
+
+   to slove $\frac{\partial f}{\partial b} = 0$ we substitute result $a = \bar{y} - b \bar{x}$
+     \[
+        a = \bar{y} - b \bar{x}
+     \implies \sum_{i=1}^n (y_i - (\bar{y}-b\bar{x}) - b x_i)x_i = 0 
+     \]
+     in further,
+     \[
+     b = \frac{\sum(y_i - \bar{y})x_i}{\sum(x_i - \bar{x})x_i}
+     \]
+     notice that \[\sum{\bar{x}x_i} = n\bar{x}^2 , \sum{\bar{y}x_i} = n\bar{x}\bar{y} \]
+ \[ b = \frac{\sum{x_iy_i-2n\bar{x}\bar{y}}+n\bar{x}\bar{y}}{\sum{x_i^2-2n\bar{x}^2}+n\bar{x}^2} \]   
+ use Binomial Theorem
+
+    \[\implies b = \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2}
+        \]
+    \[\implies
+    \begin{cases}
+    
+    a = \bar{y} - b \bar{x}, \\[2mm]
+        
+    b = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+        \end{cases}
+    \]
+\end{enumerate}
+
+\end{document}
