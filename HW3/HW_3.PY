@@ -20,7 +20,6 @@ class Hw3:
     
     def linear_regression(datas):
 
-        datas = datas
         X = sm.add_constant(np.column_stack((datas['x_1'], datas['x_2'], datas['x_3'])))
         y = datas['y']
         model = sm.OLS(y, X)
