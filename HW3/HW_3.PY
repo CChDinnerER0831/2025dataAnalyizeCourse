@@ -25,6 +25,7 @@ class Hw3:
         y = datas['y']
         model = sm.OLS(y, X)
         results = model.fit()
+        
         return results.summary()
 
 
