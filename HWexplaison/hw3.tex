@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{caption}
+
+% Page margins
+\geometry{margin=1in}
+
+% Python code style
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\lstset{
+  backgroundcolor=\color{codegray},
+  basicstyle=\ttfamily\small,
+  frame=single,
+  breaklines=true
+}
+
+\title{Homework 3}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Linear Model}
+The multiple linear regression model is given by:
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + \epsilon
+\]
+
+\section{Data Generation}
+The data is generated according to the following Python function:
+
+\begin{lstlisting}[language=Python, caption=Data Generation]
+import numpy as np
+
+def generate_data(seed=42):
+    np.random.seed(seed)
+    datas = dict()
+    datas['x_1'] = np.random.normal(0, 0.4, 100)
+    datas['x_2'] = np.random.normal(0, 0.6, 100)
+    datas['x_3'] = np.random.normal(0, 0.2, 100)
+    datas['eps'] = np.random.normal(0, 0.05, 100)
+    datas['y'] = 0.1 * datas['x_1'] + 0.2 * datas['x_2'] + 0.7 * datas['x_3'] + datas['eps']
+    return datas
+\end{lstlisting}
+
+\section{process data}
+The data is processed by according to the following Python function:
+
+\begin{lstlisting}[language=Python, caption=Data Generation]
+
+    def linear_regression(datas):
+
+        X = sm.add_constant(np.column_stack((datas['x_1'], datas['x_2'], datas['x_3'])))
+        y = datas['y']
+        model = sm.OLS(y, X)
+        results = model.fit()
+        
+        return results.summary()
+\end{lstlisting}
+
+\section{Summary of Linear Regression}
+The results of the ordinary least squares (OLS) regression are summarized in Table \ref{tab:ols_results}.
+
+\begin{table}[h!]
+\centering
+\caption{OLS Regression Results}
+\label{tab:ols_results}
+\begin{tabular}{lrrrrr}
+\toprule
+Variable & Coefficient & Std. Dev. & t value & p value & 95\% Confidence Interval \\
+\midrule
+\( b_0 \) & 0.0044 & 0.004 & 0.981 & 0.329 & [-0.004, 0.013] \\
+\( b_1 \) (x1) & 0.0778 & 0.013 & 6.197 & 0.000 & [0.053, 0.103] \\
+\( b_2 \) (x2) & 0.9968 & 0.008 & 127.269 & 0.000 & [0.981, 1.012] \\
+\( b_3 \) (x3) & 0.7067 & 0.021 & 33.885 & 0.000 & [0.665, 0.748] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Answers}
+\begin{enumerate}
+    \item Estimated coefficients:
+    \[
+    \begin{aligned}
+    b_0 &= 0.0044 \\
+    b_1 &= 0.0778 \\
+    b_2 &= 0.9968 \\
+    b_3 &= 0.7067
+    \end{aligned}
+    \]
+
+    \item The p-value for $b_0$  is 0.329, indicating it is not statistically significant.
+
+    \item The 95\% confidence interval for $b_3$ is [0.665, 0.748].
+
+    \item p-value is rather small than $\alpha(=0.05)  \implies H_0 : \beta_2 = 0 $ is rejected 
+
+    \item t-value of $\beta_3$ is 33.885.
+
+\end{enumerate}
+
+\end{document}
